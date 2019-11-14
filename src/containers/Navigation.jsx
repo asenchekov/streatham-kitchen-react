@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
+import {
+  Link
+} from "react-router-dom"
 
 export default class Navigation extends Component {
   render() {
     return (
       <nav>
         <div className="nav-wrapper z-depth-5">
-          <a href="#" className="brand-logo right">
+          <Link to="/" className="brand-logo right">
             <img className="z-depth-4 animation_logo" src="http://localhost:3000/images/image3.jpeg" width="150px" height="150px" alt="LOGO" />
-          </a>
+          </Link>
           <ul id="nav-mobile" className="left" >
-            <li><a href="#">ABOUT US</a></li>
-            <li><a href="#">OUR MENU</a></li>
-            <li><a href="#">ORDER NOW!</a></li>
+            <li><Link to="/">HOME</Link></li>
+            <li><Link to="/about">ABOUT US</Link></li>
+            <li><Link to="/menu">OUR MENU</Link></li>
+            <li><Link to="/order">ORDER NOW!</Link></li>
+            <li><Link to="/book">BOOK NOW!</Link></li>
           </ul>
         </div>
       </nav>

@@ -1,14 +1,48 @@
 import React from 'react'
-import BoardHOC from '../containers/wrappers/BoardHOC';
+import moment from 'moment'
+import BoardHOC from '../containers/wrappers/BoardHOC'
 
 const checkIfOpen = () => {
-  let time = new Date().getHours();
-  return time > 10 && time < 23 ? "we're open!" : "we're closed";
+  const times = [
+    // Sunday
+    ['12:45','20:30'],
+    // Monday
+    ['',''],
+    // Tuesday
+    ['16:00','22:00'],
+    // Wednesday
+    ['16:00','22:00'],
+    // Thursday
+    ['12:30','22:00'],
+    // Friday
+    ['12:00','22:30'],
+    // Satuday
+    ['12:45','20:30'],
+  ]
+
+  const date = moment();
+  const day = date.day()
+
+  if (!times[day][0]) {
+    return "unfortunately we're off today!"
+  }
+
+  const [
+    open,
+    close
+  ] = [
+    moment(date.format('YYYY-MM-DD ') + times[day][0]),
+    moment(date.format('YYYY-MM-DD ') + times[day][1])
+  ]
+
+  return date >= open && date < close
+    ? "we're open!"
+    : "unfortunately we're closed!"
 }
 
 export default BoardHOC(() => (
   <div>
-    <h1 className="animation_h1">Wellcome</h1>
-    <h2 className="animation_h2">{checkIfOpen()}</h2>
+    <h1 className="head animation_h1">Hi, there</h1>
+    <h2 className="head animation_h2">{checkIfOpen()}</h2>
   </div>
-));
+))

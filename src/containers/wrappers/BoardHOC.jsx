@@ -1,15 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 export default (WrappedComponent) => {
-  return class BoardHOC extends Component {
-    render() {
-      return (
-        <div className="main container z-depth-5">
-          <div className="z-depth-5 head">
-            <WrappedComponent {...this.props} />
-          </div>
-        </div>
-      )
-    }
+  return (props) => {
+    const styles = props.styles; 
+    return (
+      <div className={styles + ' board container z-depth-5'}>
+        <WrappedComponent {...props} />
+      </div>
+    )
   }
 }

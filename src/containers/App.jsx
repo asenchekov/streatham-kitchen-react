@@ -13,13 +13,13 @@ import AboutUs from './About'
 import Menu from '../components/menu'
 import Order from './Order';
 
-function App() {
+export default () => {
   return (
     <Router>
       <Navigation />
       <Switch>
         <Route path="/about">
-          <AboutUs />
+          <AboutUs styles='about' />
         </Route>
         <Route path="/menu">
           <Menu />
@@ -31,11 +31,9 @@ function App() {
           <Header />
         </Route>
         <Route path="/">
-          <Header />
+          <Header styles='main' />
         </Route>
       </Switch>
     </Router>
   )
 }
-
-export default App;

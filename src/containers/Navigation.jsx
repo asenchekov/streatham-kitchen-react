@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  Link,
-} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export default (props) => {
   return (
@@ -19,9 +17,8 @@ export default (props) => {
         <ul id="nav-mobile" className="left">
           <li><Link to="/">HOME</Link></li>
           <li><Link to="/about">ABOUT US</Link></li>
-          <li><Link to="/menu">OUR MENU</Link></li>
           <li><Link to="/order">ORDER NOW!</Link></li>
-          <li><Link to="/book">BOOK NOW!</Link></li>
+          {props.loggedIn ? <li><Link to="/bookings">MY BOOKINGS</Link></li> : null}
         </ul>
       </div>
     </nav>

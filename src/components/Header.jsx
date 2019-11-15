@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import { Link } from "react-router-dom"
 import BoardHOC from '../containers/wrappers/BoardHOC'
 
 const checkIfOpen = () => {
@@ -40,9 +41,25 @@ const checkIfOpen = () => {
     : "unfortunately we're closed!"
 }
 
-export default BoardHOC(() => (
-  <div>
-    <h1 className="head animation_h1">Hi, there</h1>
-    <h2 className="head animation_h2">{checkIfOpen()}</h2>
-  </div>
-))
+export default BoardHOC((props) => {
+  const button = props.loggedIn
+    ? (<Link to="/bookings">
+        <h2 className="head animation_h2">
+          book now =>
+        </h2>
+      </Link>)
+    : (<h1
+        className="book_link"
+        onClick={props.onClickHandler}>
+          login to book =>
+      </h1>)
+
+  return (
+    <div>
+      <h1 className="head animation_h1">Hi, {props.loggedIn && props.firstName ? props.firstName : 'there'}</h1>
+      <h2 className="head animation_h2">{checkIfOpen()}</h2>
+      <br/>
+      <br/>
+      {button}
+    </div>
+)})

@@ -31,12 +31,11 @@ body {
   padding: 1% 4% 5%;
 }
 
-.menu {
-
-}
-
-.order {
-
+.book {
+  margin-top: 10vh;
+  width: 60vw;
+  height: 70vh;
+  padding: 2% 4%;
 }
 
 h1 {
@@ -45,20 +44,20 @@ h1 {
   font-size: 4rem;
   color: cornsilk;
   text-shadow: 2px 2px 0px #222831;
+  transition: ease 0.6s;
 }
 
-.head {
-  font-family: 'Sedgwick Ave';
-  text-align: center;
-  font-size: 4rem;
-  color: cornsilk;
-  opacity: 0;
-  text-shadow: 2px 2px 0px #222831;
+.book-link:hover {
+  font-size: 5rem;
 }
 
 span {
   color: cornsilk;
   font-size: 1rem;
+}
+
+select {
+  /* display: block; */
 }
 
 img {

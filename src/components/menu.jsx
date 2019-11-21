@@ -5,4 +5,4 @@ export default BoardHOC((props) => (
   <div>
     <h1>THIS IS OUR MENU</h1>
   </div>
-));
+))

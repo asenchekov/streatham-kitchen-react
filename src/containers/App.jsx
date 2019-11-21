@@ -10,7 +10,6 @@ import {
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-import '../styles/materialize.css'
 import '../styles/App.css'
 
 import Navigation from './Navigation'
@@ -19,6 +18,8 @@ import AboutUs from './About'
 import Menu from '../components/menu'
 import Order from './Order'
 import Bookings from './Bookings'
+import BookTablePopup from './bookTablePopup'
+
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -29,10 +30,13 @@ firebase.initializeApp({
 })
 
 const provider = new firebase.auth.GoogleAuthProvider();
-const database = firebase.database();
+// const database = firebase.database();
 
 export default () => {
   const [user, setUser] = useState(null);
+  const [bookPopup, setBookPopup] = useState({
+    visible: false,
+  })
 
   useEffect(() => firebase.auth()
     .onAuthStateChanged((user) => {
@@ -43,6 +47,7 @@ export default () => {
           displayName,
           photoURL,
         } = user
+
         setUser({
           uid,
           email,
@@ -53,19 +58,41 @@ export default () => {
     }), [])
 
   const onClick = () => {
-    firebase.auth()
-      .signInWithPopup(provider)
-      .then(({ user }) => {
-        const { uid, email, displayName, photoURL } = user
-        setUser({
-          uid,
-          email,
-          displayName,
-          photoURL,
+    if(!!!user) {
+      firebase.auth()
+        .signInWithPopup(provider)
+        .then(({ user }) => {
+          const {
+            uid,
+            email,
+            displayName,
+            photoURL
+          } = user
+
+          setUser({
+            uid,
+            email,
+            displayName,
+            photoURL,
+          })
         })
+        .catch((error) => {
+        console.log(error)
       })
-      .catch((error) => {
-      console.log(error)
+    } else {
+      setBookPopup({
+        ...bookPopup,
+        visible: true,
+      })
+    }
+  }
+
+  const onSubmit = (booking) => {
+    // event.preventDefault();
+    console.log(booking)
+    setBookPopup({
+      ...bookPopup,
+      visible: false,
     })
   }
 
@@ -86,11 +113,14 @@ export default () => {
           <Bookings />
         </Route>
         <Route path="/">
-          <Header
-            styles='main'
-            loggedIn={!!user}
-            firstName={user ? user.displayName.split(' ')[0] : ''}
-            onClickHandler={onClick} />
+        {bookPopup.visible
+          ? <BookTablePopup
+            styles='book' {...bookPopup} onSubmit={onSubmit} />
+          : <Header
+              styles='main'
+              loggedIn={!!user}
+              firstName={user ? user.displayName.split(' ')[0] : ''}
+              onClickHandler={onClick} />}
         </Route>
       </Switch>
     </Router>

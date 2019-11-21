@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from "react-router-dom"
 
 export default (props) => {
+  const bookings = props.loggedIn
+    ? <li><Link to="/bookings">MY BOOKINGS</Link></li>
+    : null
+
   return (
     <nav>
       <div className="nav-wrapper z-depth-5">
@@ -18,7 +22,7 @@ export default (props) => {
           <li><Link to="/">HOME</Link></li>
           <li><Link to="/about">ABOUT US</Link></li>
           <li><Link to="/order">ORDER NOW!</Link></li>
-          {props.loggedIn ? <li><Link to="/bookings">MY BOOKINGS</Link></li> : null}
+          {bookings}
         </ul>
       </div>
     </nav>

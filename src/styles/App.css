@@ -9,6 +9,7 @@ body {
   font-size: 10px;
   background: no-repeat url('../images/background1.jpg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .board {
@@ -38,7 +39,7 @@ body {
   padding: 2% 4%;
 }
 
-h1 {
+h1, .delete {
   font-family: 'Sedgwick Ave';
   text-align: center;
   font-size: 4rem;
@@ -54,10 +55,6 @@ h1 {
 span {
   color: cornsilk;
   font-size: 1rem;
-}
-
-select {
-  /* display: block; */
 }
 
 img {

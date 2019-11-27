@@ -15,7 +15,6 @@ import '../styles/App.css'
 import Navigation from './Navigation'
 import Header from '../components/header'
 import AboutUs from './About'
-import Menu from '../components/menu'
 import Order from './Order'
 import Bookings from './Bookings'
 import BookTablePopup from './bookTablePopup'
@@ -30,13 +29,12 @@ firebase.initializeApp({
 })
 
 const provider = new firebase.auth.GoogleAuthProvider();
-// const database = firebase.database();
+const database = firebase.database();
 
 export default () => {
   const [user, setUser] = useState(null);
-  const [bookPopup, setBookPopup] = useState({
-    visible: false,
-  })
+  const [bookPopup, setBookPopup] = useState(false)
+  const [bookings, setBookingList] = useState(null)
 
   useEffect(() => firebase.auth()
     .onAuthStateChanged((user) => {
@@ -56,6 +54,14 @@ export default () => {
         });
       }
     }), [])
+
+  useEffect(() => {
+    if (user) {
+      database.ref(`users/${user.uid}`).on('value', (snapshot) => {
+        setBookingList(snapshot.val())
+      })
+    }
+  }, [user])
 
   const onClick = () => {
     if(!!!user) {
@@ -80,47 +86,82 @@ export default () => {
         console.log(error)
       })
     } else {
-      setBookPopup({
-        ...bookPopup,
-        visible: true,
-      })
+      setBookPopup(true)
     }
   }
 
-  const onSubmit = (booking) => {
-    // event.preventDefault();
-    console.log(booking)
-    setBookPopup({
-      ...bookPopup,
-      visible: false,
-    })
+  const onSubmit = ({date, time, chairs}) => {
+    const {
+      uid,
+      email,
+      displayName,
+    } = user
+
+    database.ref(`bookings/${date}/${time}/${uid}`)
+      .set({
+        displayName,
+        email,
+        chairs,
+        confirmed: false,
+      })
+      .then(() => console.log("Added reservation success"))
+      .catch(console.log)
+
+    database.ref(`users/${uid}`)
+      .set({
+        [`${date}T${time}`]: chairs
+      })
+      .then(() => console.log("Added reservation success"))
+      .catch(console.log)
+    setBookPopup(false)
   }
+
+  const onRemoveHandler = (key) => {
+    database.ref(`bookings/${key.split('T').join('/')}/${user.uid}`).remove()
+      .then(() => console.log('Successfully removed', key))
+      .catch(console.log)
+
+    database.ref(`users/${user.uid}/${key}`).remove()
+      .then(() => console.log('Successfully removed', key))
+      .catch(console.log)
+  }
+
+  const logOut = () => {
+    firebase.auth().signOut()
+    setBookPopup(false)
+    setUser(null)
+  }
+
+  const book = bookPopup
+    ? <BookTablePopup
+        styles='book'
+        onSubmit={onSubmit}
+        db={database}
+        user={user.uid}
+      />
+    : <Header
+        styles='main'
+        loggedIn={!!user}
+        firstName={user ? user.displayName.split(' ')[0] : ''}
+        onClickHandler={onClick} />
 
   return (
     <Router>
-      <Navigation loggedIn={!!user} />
+      <Navigation loggedIn={!!user} logout={logOut} />
       <Switch>
         <Route path="/about">
           <AboutUs styles='about' />
-        </Route>
-        <Route path="/menu">
-          <Menu />
         </Route>
         <Route path="/order">
           <Order />
         </Route>
         <Route path="/bookings">
-          <Bookings />
+          <Bookings
+            bookings={bookings}
+            onRemoveHandler={onRemoveHandler} />
         </Route>
         <Route path="/">
-        {bookPopup.visible
-          ? <BookTablePopup
-            styles='book' {...bookPopup} onSubmit={onSubmit} />
-          : <Header
-              styles='main'
-              loggedIn={!!user}
-              firstName={user ? user.displayName.split(' ')[0] : ''}
-              onClickHandler={onClick} />}
+        {book}
         </Route>
       </Switch>
     </Router>

@@ -1,0 +1,25 @@
+{
+  "bookings": {
+    "YYYY-MM-DD": {
+      "HH:mm": {
+          <user.uid>: {
+            displayName: John Doe,
+            email: john.doe@gmail.com
+            chairs: 4,
+            confirmed: false
+
+          ...
+      }
+    }
+    ....
+  },
+  "users": {
+    [user.uid]: {
+      <'YYYY-MM-DDTHH:mm'>: <chairs: number>
+    }
+  }
+}
+
+
+// Usage
+database.ref('bookings/2019-11-28/10').on("value")

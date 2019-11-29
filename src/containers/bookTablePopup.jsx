@@ -5,7 +5,7 @@ import boardHOC from './wrappers/BoardHOC'
 import { openingTimes } from '../components/helpers';
 
 
-export default boardHOC(({ onSubmit, db, user }) => {
+export default boardHOC(({ onSubmit, onCancel, db, user }) => {
   const [booking, setBooking] = useState({})
   const [select, setSelect] = useState(null)
   const [datePicker, setDatePicker] = useState(null)
@@ -66,10 +66,10 @@ export default boardHOC(({ onSubmit, db, user }) => {
 
   const { day, date, time } = booking
 
-  if (day && openingTimes[day][0]) {
+  if (day !== undefined && openingTimes[day][0]) {
     const open = moment(`${date} ${openingTimes[day][0]}`)
     const close = moment(`${date} ${openingTimes[day][1]}`)
-    
+
     while (open < moment()) {
       open.add(60, 'm')
     }
@@ -92,7 +92,7 @@ export default boardHOC(({ onSubmit, db, user }) => {
         <input
           onChange={(event) => setBooking({
             ...booking,
-           chairs: Number(event.target.value),
+            chairs: Number(event.target.value),
           })}
           type="number"
           min="1"
@@ -117,10 +117,10 @@ export default boardHOC(({ onSubmit, db, user }) => {
         <div className="input-field col s12">
           <select
             ref={(select) => {setSelect(select)}}
-            defaultValue=""
+            value={booking.time || ""}
             onChange={(event) => setBooking({
               ...booking,
-             time: event.target.value,
+              time: event.target.value,
             })}
           >
             <option
@@ -140,6 +140,13 @@ export default boardHOC(({ onSubmit, db, user }) => {
           <i className="material-icons right">send</i>
         </button>
       </form>
+      <button
+          onClick={() => onCancel(false)}
+          className="btn waves-effect waves-light"
+        >
+          CANCEL
+          <i className="material-icons right">cancel</i>
+        </button>
     </div>
   )
 })

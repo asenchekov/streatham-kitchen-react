@@ -8,20 +8,21 @@ export default BoardHOC(({ bookings, onRemoveHandler }) => {
 
   if (bookings) {
     bookingList = Object.keys(bookings).map((key, i) => {
-    return (
-      <div key={key}>
-        <hr/>
-        <h1>
-          {i + 1 + ')'} {moment(key).format('ddd, Do MMMM YYYY @ HH:mm')}
-          <span
-            className="delete"
-            onClick={() => onRemoveHandler(key)}> |x|</span>
-        </h1>
-        <h1>Table for: {bookings[key]}</h1>
-      </div>
-    )
+      return (
+        <div key={key}>
+          <hr/>
+          <h1>
+            {i + 1 + ')'} {moment(key).format('ddd, Do MMMM YYYY @ HH:mm')}
+            <span
+              className="delete"
+              onClick={() => onRemoveHandler(key)}> x</span>
+          </h1>
+          <h1>Table for: {bookings[key]}</h1>
+        </div>
+      )
     })
   }
+
   return (
     <div>
       <div>

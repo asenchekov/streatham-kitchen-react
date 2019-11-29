@@ -17,7 +17,7 @@ export default (props) => {
           <Link to="/" className="brand-logo right">
             <img
               className="z-depth-4 animation_logo"
-              src="image3.jpeg"
+              src="logo192.png"
               width="150px"
               height="150px"
               alt="LOGO"

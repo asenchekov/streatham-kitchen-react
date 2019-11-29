@@ -7,9 +7,11 @@ import {
   Switch,
   Route,
 } from 'react-router-dom'
+
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+
 import '../styles/App.css'
 
 import Navigation from './Navigation'
@@ -57,9 +59,10 @@ export default () => {
 
   useEffect(() => {
     if (user) {
-      database.ref(`users/${user.uid}`).on('value', (snapshot) => {
-        setBookingList(snapshot.val())
-      })
+      database.ref(`users/${user.uid}`)
+        .on('value', (snapshot) => {
+          setBookingList(snapshot.val())
+        })
     }
   }, [user])
 
@@ -107,10 +110,8 @@ export default () => {
       .then(() => console.log("Added reservation success"))
       .catch(console.log)
 
-    database.ref(`users/${uid}`)
-      .set({
-        [`${date}T${time}`]: chairs
-      })
+    database.ref(`users/${uid}/${date}T${time}`)
+      .set(chairs)
       .then(() => console.log("Added reservation success"))
       .catch(console.log)
     setBookPopup(false)
@@ -136,6 +137,7 @@ export default () => {
     ? <BookTablePopup
         styles='book'
         onSubmit={onSubmit}
+        onCancel={setBookPopup}
         db={database}
         user={user.uid}
       />

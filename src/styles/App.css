@@ -39,6 +39,10 @@ body {
   padding: 2% 4%;
 }
 
+.head {
+  opacity: 0;
+}
+
 h1, .delete {
   font-family: 'Sedgwick Ave';
   text-align: center;
@@ -62,12 +66,12 @@ img {
 }
 
 .animation_h2 {
-  animation: slide 0.6s ease 0.4s;
+  animation: slide 0.6s ease 0.6s;
   animation-fill-mode: forwards;
 }
 
 .animation_h1 {
-  animation: slide 0.6s ease 0.2s;
+  animation: slide 0.6s ease 0.4s;
   animation-fill-mode: forwards;
 }
 

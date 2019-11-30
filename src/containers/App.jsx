@@ -149,7 +149,12 @@ export default () => {
 
   return (
     <Router>
-      <Navigation loggedIn={!!user} logout={logOut} />
+      <Navigation
+        loggedIn={!!user}
+        logout={logOut}
+        onBook={onClick}
+        setBookPopup={setBookPopup}
+      />
       <Switch>
         <Route path="/about">
           <AboutUs styles='about' />

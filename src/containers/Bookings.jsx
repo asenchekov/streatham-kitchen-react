@@ -1,9 +1,8 @@
 import React from 'react'
 import moment from 'moment'
-import BoardHOC from '../containers/wrappers/BoardHOC'
 
 
-export default BoardHOC(({ bookings, onRemoveHandler }) => {
+export default ({ bookings, onRemoveHandler }) => {
   let bookingList
 
   if (bookings) {
@@ -31,4 +30,4 @@ export default BoardHOC(({ bookings, onRemoveHandler }) => {
       {bookingList || <h1>you don't have any bookings</h1>}
     </div>
   )
-})
+}

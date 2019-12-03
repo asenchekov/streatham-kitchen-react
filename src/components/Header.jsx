@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import BoardHOC from '../containers/wrappers/BoardHOC'
 import { checkIfOpen } from './helpers';
 
 
-export default BoardHOC(({ onClickHandler, loggedIn, firstName }) => {
+export default ({ onClickHandler, loggedIn, firstName }) => {
   const [headerTop, setHeaderTop] = useState()
   const [headerBottom, setHeaderBottom] = useState()
 
@@ -40,4 +39,4 @@ export default BoardHOC(({ onClickHandler, loggedIn, firstName }) => {
       {button}
     </div>
   )
-})
+}

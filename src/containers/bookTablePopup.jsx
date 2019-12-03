@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import M from 'materialize-css'
-import boardHOC from './wrappers/BoardHOC'
 import { openingTimes } from '../components/helpers';
 
 
-export default boardHOC(({ onSubmit, onCancel, db, user }) => {
+export default ({ onSubmit, onCancel, db, user }) => {
   const [booking, setBooking] = useState({})
   const [select, setSelect] = useState(null)
   const [datePicker, setDatePicker] = useState(null)
@@ -149,4 +148,4 @@ export default boardHOC(({ onSubmit, onCancel, db, user }) => {
         </button>
     </div>
   )
-})
+}

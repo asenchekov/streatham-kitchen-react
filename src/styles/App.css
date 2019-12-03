@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Sedgwick+Ave|Fjalla+One');
 
+:root {
+  --text-color: rgb(27, 27, 27);
+  --nav-background: rgba(41, 44, 49, 0.7);
+  --nav-font: sans-serif;
+  --header-font: 'Sedgwick Ave', sans-serif;
+}
+
 body {
-  height: 80vh;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -12,31 +18,8 @@ body {
   background-attachment: fixed;
 }
 
-.board {
-  background: border-box url('../images/blackboard-background.jpg');
-  background-size: cover;
-  margin-top: 22vh;
-  padding: 11px 10px;
-  border-radius: 10px 10px 10px 10px;
-  margin-bottom: 10vh;
-}
-
-.main {
-  width: 60vw;
-  height: 50vh;
-  padding: 2% 4%;
-}
-
-.about {
-  margin-top: 10vh;
-  padding: 1% 4% 5%;
-}
-
-.book {
-  margin-top: 10vh;
-  width: 60vw;
-  height: 70vh;
-  padding: 2% 4%;
+nav {
+  background: var(--nav-background);
 }
 
 .head {
@@ -44,20 +27,15 @@ body {
 }
 
 h1, .delete {
-  font-family: 'Sedgwick Ave';
+  font-family: var(--header-font);
   text-align: center;
   font-size: 4rem;
-  color: cornsilk;
-  text-shadow: 2px 2px 0px #222831;
+  color: var(--text-color);
   transition: ease 0.6s;
 }
 
-.book-link:hover {
-  font-size: 5rem;
-}
-
-span {
-  color: cornsilk;
+p {
+  color: var(--text-color);
   font-size: 1rem;
 }
 
@@ -65,66 +43,9 @@ img {
   opacity: 0;
 }
 
-.animation_h2 {
-  animation: slide 0.6s ease 0.6s;
-  animation-fill-mode: forwards;
-}
-
-.animation_h1 {
-  animation: slide 0.6s ease 0.4s;
-  animation-fill-mode: forwards;
-}
-
-.animation_logo {
-  animation: logo 1.5s ease 0.2s;
-  animation-fill-mode: forwards;
-}
-
-.nav-wrapper {
-  background: #292c31;
-  font-family: 'Fjalla One', sans-serif;
-  font-weight: 100;
-}
-
-.nav-wrapper li a {
-  color: #fd5f00;
-  transition: all 0.2s;
-  border: #fd5f00;
-}
-
-.nav-wrapper li a:hover {
-  border-bottom: 3px solid #fd5f00;
-}
-
-@keyframes slide {
-  0% {
-    transform: translate3d(-600px, 0, 0);
-  }
-  60% {
-    transform: translate3d(40px, 0, 0);
-  }
-  100%{
-    opacity: 1;
-    transform: translate3d(0px, 0, 0);
-  }
-}
-
-@keyframes logo {
-  0% {
-    transform: translate3d(0, -200px, 0);
-  }
-  100%{
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  img {
-    height: 70px;
-    width: 70px;
-  }
-  body {
-    background-size: 100vw 100vh;
-  }
+.admin-table td,
+.admin-table th,
+.admin-table caption {
+  color: var(--text-color);
+  font-size: 2rem;
 }

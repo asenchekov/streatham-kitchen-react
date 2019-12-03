@@ -1,25 +1,42 @@
-import React from 'react'
-import BoardHOC from '../containers/wrappers/BoardHOC'
+import React, { useState, useEffect } from 'react'
 import { checkIfOpen } from './helpers';
 
 
-export default BoardHOC((props) => {
+export default ({ onClickHandler, loggedIn, firstName }) => {
+  const [headerTop, setHeaderTop] = useState()
+  const [headerBottom, setHeaderBottom] = useState()
+
+  useEffect(() => {
+    if (headerTop && headerBottom) {
+      headerTop.className += ' animation_h1'
+      headerBottom.className += ' animation_h2'
+    }
+  })
+
   const button = (
     <h1
       className="book-link"
-      onClick={props.onClickHandler}>
-        {props.loggedIn ? `>book now` : `>login to book`}
+      onClick={onClickHandler}>
+        {loggedIn ? `>book now` : `>login to book`}
     </h1>
   )
 
-  const greeting = `Hi, ${props.loggedIn && props.firstName ? props.firstName : 'there'}`
+  const greeting = `Hi, ${loggedIn && firstName ? firstName : 'there'}`
 
   return (
     <div>
-      <h1 className="head animation_h1">{greeting}</h1>
-      <h1 className="head animation_h2">{checkIfOpen()}</h1>
+      <h1
+        ref={(heading) => setHeaderTop(heading)}
+        className="head">
+          {greeting}
+      </h1>
+      <h1
+        ref={(heading) => setHeaderBottom(heading)}
+        className="head">
+          {checkIfOpen()}
+      </h1>
       <br/>
       {button}
     </div>
   )
-})
+}

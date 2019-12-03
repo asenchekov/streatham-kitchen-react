@@ -1,0 +1,14 @@
+.animation_h2 {
+  animation: slide 0.6s ease 0.6s;
+  animation-fill-mode: forwards;
+}
+
+.animation_h1 {
+  animation: slide 0.6s ease 0.4s;
+  animation-fill-mode: forwards;
+}
+
+.animation_logo {
+  animation: logo 1.5s ease 0.2s;
+  animation-fill-mode: forwards;
+}

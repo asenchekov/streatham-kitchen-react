@@ -1,0 +1,22 @@
+@keyframes slide {
+  0% {
+    transform: translate3d(-600px, 0, 0);
+  }
+  60% {
+    transform: translate3d(40px, 0, 0);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0px, 0, 0);
+  }
+}
+
+@keyframes logo {
+  0% {
+    transform: translate3d(0, -200px, 0);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

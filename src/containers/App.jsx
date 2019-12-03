@@ -13,13 +13,16 @@ import 'firebase/auth'
 import 'firebase/database'
 
 import '../styles/App.css'
+import '../styles/media.css'
+import '../styles/keyframes.css'
+import '../styles/animations.css'
 
 import Navigation from './Navigation'
 import Header from '../components/header'
 import AboutUs from './About'
-import Order from './Order'
 import Bookings from './Bookings'
 import BookTablePopup from './bookTablePopup'
+import AdminPage from './adminPage'
 
 
 firebase.initializeApp({
@@ -34,7 +37,9 @@ const provider = new firebase.auth.GoogleAuthProvider();
 const database = firebase.database();
 
 export default () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
+  const [admin, setAdmin] = useState(false)
+  const [adminData, setAdminData] = useState({ date: null, data: null })
   const [bookPopup, setBookPopup] = useState(false)
   const [bookings, setBookingList] = useState(null)
 
@@ -54,6 +59,10 @@ export default () => {
           displayName,
           photoURL,
         });
+
+        if (email === 'asen.chekov@gmail.com') {
+          setAdmin(true)
+        }
       }
     }), [])
 
@@ -64,7 +73,15 @@ export default () => {
           setBookingList(snapshot.val())
         })
     }
-  }, [user])
+  }, [user, admin])
+
+  const adminQuery = async (date) => {
+    database.ref(`bookings/${date}`)
+      .on('value', (data) => setAdminData({
+        data: data.val(),
+        date,
+      }))
+  }
 
   const onClick = () => {
     if(!!!user) {
@@ -117,12 +134,12 @@ export default () => {
     setBookPopup(false)
   }
 
-  const onRemoveHandler = (key) => {
-    database.ref(`bookings/${key.split('T').join('/')}/${user.uid}`).remove()
+  const onRemoveHandler = (key, uid = user.uid) => {
+    database.ref(`bookings/${key.split('T').join('/')}/${uid}`).remove()
       .then(() => console.log('Successfully removed', key))
       .catch(console.log)
 
-    database.ref(`users/${user.uid}/${key}`).remove()
+    database.ref(`users/${uid}/${key}`).remove()
       .then(() => console.log('Successfully removed', key))
       .catch(console.log)
   }
@@ -131,34 +148,51 @@ export default () => {
     firebase.auth().signOut()
     setBookPopup(false)
     setUser(null)
+    setAdmin(false)
   }
 
   const book = bookPopup
     ? <BookTablePopup
-        styles='book'
+        styles="book"
         onSubmit={onSubmit}
         onCancel={setBookPopup}
         db={database}
         user={user.uid}
       />
     : <Header
-        styles='main'
+        styles="main"
         loggedIn={!!user}
         firstName={user ? user.displayName.split(' ')[0] : ''}
         onClickHandler={onClick} />
 
+  const adminPage = admin
+    ? <Route path="/admin">
+        <AdminPage
+          styles="about"
+          fetchData={adminQuery}
+          adminData={adminData}
+          onRemoveHandler={onRemoveHandler}
+        />
+      </Route>
+    : null
+
   return (
     <Router>
-      <Navigation loggedIn={!!user} logout={logOut} />
+      <Navigation
+        loggedIn={!!user}
+        logout={logOut}
+        onBook={onClick}
+        setBookPopup={setBookPopup}
+        admin={admin}
+      />
       <Switch>
+        {adminPage}
         <Route path="/about">
-          <AboutUs styles='about' />
-        </Route>
-        <Route path="/order">
-          <Order />
+          <AboutUs styles="about" />
         </Route>
         <Route path="/bookings">
           <Bookings
+            styles="about"
             bookings={bookings}
             onRemoveHandler={onRemoveHandler} />
         </Route>

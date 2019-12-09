@@ -63,7 +63,7 @@ export default ({ onSubmit, onCancel, db, user }) => {
 
   const timeOptions = []
 
-  const { day, date, time } = booking
+  const { day, date } = booking
 
   if (day !== undefined && openingTimes[day][0]) {
     const open = moment(`${date} ${openingTimes[day][0]}`)
@@ -96,56 +96,67 @@ export default ({ onSubmit, onCancel, db, user }) => {
           type="number"
           min="1"
           max={freeTables}
-          disabled={!!!freeTables ? true : false} />
+          disabled={!!!freeTables ? true : false}
+        />
         <label>Seats</label>
       </div>
     : null
 
   return (
-    <div className={`book-popup`} >
-      <h3>{`${date}T${time}`}</h3>
+    <div className="container popup">
+      <h1>Book a table</h1>
+      <br/>
       <form onSubmit={onSubmitHandler}>
-        <div className="input-field col s12">
-          <input
-            type="text"
-            className="datepicker"
-            ref={(datepicker) => {setDatePicker(datepicker)}}
-          />
-          <label>Date</label>
+        <div className="row form">
+          <div className="input-field col s12">
+            <input
+              placeholder="pick a date"
+              type="text"
+              className="datepicker"
+              ref={(datepicker) => setDatePicker(datepicker)}
+            />
+          </div>
         </div>
-        <div className="input-field col s12">
-          <select
-            ref={(select) => {setSelect(select)}}
-            value={booking.time || ""}
-            onChange={(event) => setBooking({
-              ...booking,
-              time: event.target.value,
-            })}
-          >
-            <option
-              value="" disabled
+        <div className="row form">
+          <div className="input-field col s12">
+            <select
+              ref={(select) => setSelect(select)}
+              value={booking.time || ""}
+              onChange={(event) => setBooking({
+                ...booking,
+                time: event.target.value,
+              })}
             >
-              {!!timeOptions.length ? `Choose time` : `Closed`}
-            </option>
-            {timeOptions}
-          </select>
+              <option
+                value="" disabled
+              >
+                {!!timeOptions.length ? `Choose time` : `Closed`}
+              </option>
+              {timeOptions}
+            </select>
+          </div>
         </div>
-        {seats}
-        <button
-          disabled={!!!booking.time || !!!booking.date || !!!booking.chairs}
-          className="btn waves-effect waves-light" type="submit"
-        >
-          BOOK
-          <i className="material-icons right">send</i>
-        </button>
+        <div className="row form">
+          {seats}
+        </div>
+        <div className="row form">
+          <button
+            disabled={!!!booking.time || !!!booking.date || !!!booking.chairs}
+            className="btn waves-effect waves-light"
+            type="submit"
+          >
+            BOOK
+            <i className="material-icons right">send</i>
+          </button>
+          <button
+            onClick={() => onCancel(false)}
+            className="btn waves-effect waves-light right"
+          >
+            CANCEL
+            <i className="material-icons right">cancel</i>
+          </button>
+        </div>
       </form>
-      <button
-          onClick={() => onCancel(false)}
-          className="btn waves-effect waves-light"
-        >
-          CANCEL
-          <i className="material-icons right">cancel</i>
-        </button>
     </div>
   )
 }

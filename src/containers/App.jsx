@@ -7,6 +7,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom'
+import BackgroundSlider from 'react-background-slider'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -17,10 +18,19 @@ import '../styles/media.css'
 import '../styles/keyframes.css'
 import '../styles/animations.css'
 
-import Navigation from './Navigation'
+import image1 from '../images/background1.jpg'
+import image2 from '../images/background2.jpg'
+import image3 from '../images/background3.jpg'
+import image4 from '../images/background4.jpg'
+import image5 from '../images/background5.jpg'
+import image6 from '../images/background6.jpg'
+import image7 from '../images/background7.jpg'
+import image8 from '../images/background8.jpg'
+
+import Navigation from './navigation'
 import Header from '../components/header'
-import AboutUs from './About'
-import Bookings from './Bookings'
+import AboutUs from '../components/about'
+import Bookings from '../components/bookings'
 import BookTablePopup from './bookTablePopup'
 import AdminPage from './adminPage'
 
@@ -35,6 +45,17 @@ firebase.initializeApp({
 
 const provider = new firebase.auth.GoogleAuthProvider();
 const database = firebase.database();
+
+const backgrounds = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+  image8
+]
 
 export default () => {
   const [user, setUser] = useState(null)
@@ -60,7 +81,8 @@ export default () => {
           photoURL,
         });
 
-        if (email === 'asen.chekov@gmail.com') {
+        if (email === 'asen.chekov@gmail.com'
+          || email === 'Streathamkitchen@gmail.com') {
           setAdmin(true)
         }
       }
@@ -178,6 +200,10 @@ export default () => {
 
   return (
     <Router>
+      <BackgroundSlider
+        images={backgrounds}
+        duration={10} transition={1.5}
+      />
       <Navigation
         loggedIn={!!user}
         logout={logOut}

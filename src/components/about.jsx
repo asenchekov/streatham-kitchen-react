@@ -1,9 +1,10 @@
 import React from 'react'
 
 
-export default (props) => (
-  <div>
-    <h1>ABOUT US</h1>
+export default () => (
+  <div className="container about">
+    <h1>Something about us</h1>
+    <hr/>
     <p>Streatham Kitchen is a popular</p>
     <p>intimate restaurant with 14 seats.</p>
     <br/>

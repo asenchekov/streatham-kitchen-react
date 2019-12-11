@@ -66,29 +66,6 @@ nav ul a {
   margin-top: 15%;
 }
 
-.image1,
-.image2,
-.image3 {
-  /* width: 100%; */
-  border: 1px solid white;
-  height: 400px;
-}
-
-.image1 {
-  background: url('/image5.jpeg') center no-repeat;
-  background-size: cover;
-}
-
-.image2 {
-  background: url('/image9.jpeg') center no-repeat;
-  background-size: cover;
-}
-
-.image3 {
-  background: url('/image11.jpeg') center no-repeat;
-  background-size: cover;
-}
-
 .popup,
 .bookings,
 .about,
@@ -103,7 +80,6 @@ nav ul a {
 
 .about {
   width: 75%;
-  padding-bottom: 0;
 }
 
 .admin {
@@ -137,15 +113,10 @@ h1, h3, .delete {
   cursor: pointer;
 }
 
-.left-side-about {
-  background-color: black;
-  height: 100%;
-}
-
 p {
   color: var(--text-color);
   font-family: var(--header-font);
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   text-align: center;
 }
 
@@ -158,11 +129,6 @@ input {
   text-align: center;
   font-size: xx-large !important;
   font-family: var(--nav-font);
-}
-
-.about-image {
-  width: 100%;
-  max-width: 450px;
 }
 
 th, td {
@@ -198,4 +164,16 @@ th, td {
 
 .datepicker-date-display {
   background-color: black;
+}
+
+.card {
+  background: black;
+  width: 90%;
+  margin: auto;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.card-stacked {
+  width: 60%;
 }

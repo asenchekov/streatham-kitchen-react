@@ -8,7 +8,9 @@ export default ({ loggedIn, logout, onBook, setBookPopup, admin }) => {
   const [sidenav, setSideNav] = useState()
 
   useEffect(() => {
-    M.Sidenav.init(sidenav)
+    M.Sidenav.init(sidenav, {
+      preventScrolling: true,
+    })
 
     if (logo) {
       logo.className += ' animation_logo'

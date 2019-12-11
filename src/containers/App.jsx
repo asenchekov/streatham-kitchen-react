@@ -46,23 +46,23 @@ firebase.initializeApp({
 const provider = new firebase.auth.GoogleAuthProvider();
 const database = firebase.database();
 
-const backgrounds = [
-  image1,
-  image2,
-  image3,
-  image4,
-  image5,
-  image6,
-  image7,
-  image8
-]
-
 export default () => {
   const [user, setUser] = useState(null)
   const [admin, setAdmin] = useState(false)
   const [adminData, setAdminData] = useState({ date: null, data: null })
   const [bookPopup, setBookPopup] = useState(false)
   const [bookings, setBookingList] = useState(null)
+
+  const backgrounds = [
+    image1,
+    image2,
+    image3,
+    image4,
+    image5,
+    image6,
+    image7,
+    image8,
+  ]
 
   useEffect(() => firebase.auth()
     .onAuthStateChanged((user) => {
@@ -202,7 +202,7 @@ export default () => {
     <Router>
       <BackgroundSlider
         images={backgrounds}
-        duration={10} transition={1.5}
+        duration={6} transition={1}
       />
       <Navigation
         loggedIn={!!user}
@@ -223,7 +223,7 @@ export default () => {
             onRemoveHandler={onRemoveHandler} />
         </Route>
         <Route path="/">
-        {book}
+          {book}
         </Route>
       </Switch>
     </Router>

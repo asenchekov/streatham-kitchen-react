@@ -13,7 +13,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 
-import '../styles/App.css'
+import '../styles/app.css'
 import '../styles/media.css'
 import '../styles/keyframes.css'
 import '../styles/animations.css'

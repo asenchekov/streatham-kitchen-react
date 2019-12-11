@@ -22,28 +22,29 @@ export default ({ fetchData, adminData, onRemoveHandler }) => {
 
   const tableRows = data
     ? Object.keys(data).map((time) => (
-          Object.keys(data[time]).map((user) => (
-            <tr key={date+time}>
-              <td>{time}</td>
-              <td>{data[time][user].chairs}</td>
-              <td>{data[time][user].displayName}</td>
-              <td>{data[time][user].confirmed ? 'Yes' : 'No'}</td>
-              <td onClick={() => onRemoveHandler(date + 'T' + time, user)}>X</td>
-            </tr>
-          ))
-        )).flat()
+        Object.keys(data[time]).map((user) => (
+          <tr key={date+time}>
+            <td>{time}</td>
+            <td>{data[time][user].chairs}</td>
+            <td>{data[time][user].displayName}</td>
+            <td>{data[time][user].confirmed ? 'Yes' : 'No'}</td>
+            <td onClick={() => onRemoveHandler(date + 'T' + time, user)}>X</td>
+          </tr>
+        ))
+      )).flat()
     : null
 
   return (
-    <div>
+    <div className="container admin">
       <h1>Hi admin</h1>
-      <div className="input-field col s12">
+      <hr/>
+      <div className="input-field col s8">
         <input
+          placeholder="pick a date"
           type="text"
           className="datepicker"
           ref={(datepicker) => {setDatePicker(datepicker)}}
         />
-        <label>Date</label>
       </div>
       <table className="admin-table highlight centered">
         <caption>Bookings {date}</caption>

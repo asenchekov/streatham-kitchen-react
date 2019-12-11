@@ -17,14 +17,14 @@ export default ({ onClickHandler, loggedIn, firstName }) => {
     <h1
       className="book-link"
       onClick={onClickHandler}>
-        {loggedIn ? `>book now` : `>login to book`}
+        {loggedIn ? `>book now<` : `>login to book<`}
     </h1>
   )
 
   const greeting = `Hi, ${loggedIn && firstName ? firstName : 'there'}`
 
   return (
-    <div>
+    <div className="container header">
       <h1
         ref={(heading) => setHeaderTop(heading)}
         className="head">

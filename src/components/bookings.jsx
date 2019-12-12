@@ -11,13 +11,13 @@ export default ({ bookings, onRemoveHandler }) => {
         <div key={key}>
           <hr/>
           <h3>
-            {i + 1 + ')'} {moment(key).format('ddd, Do MMMM YYYY @ HH:mm')}
-            <span
-              className="delete"
-              title="delete booking"
-              onClick={() => onRemoveHandler(key)}> Ix</span>
+            {moment(key).format('ddd, Do MMMM YYYY @ HH:mm')}
           </h3>
           <h3>Table for: {bookings[key]}</h3>
+          <h3
+              className="delete"
+              title="delete booking"
+              onClick={() => onRemoveHandler(key)}>delete</h3>
         </div>
       )
     })
@@ -28,7 +28,7 @@ export default ({ bookings, onRemoveHandler }) => {
       <div>
         <h1>My Bookings</h1>
       </div>
-      {bookingList || <h1>you don't have any bookings</h1>}
+      {bookingList || <div><hr /><h1>you don't have any bookings</h1></div>}
     </div>
   )
 }

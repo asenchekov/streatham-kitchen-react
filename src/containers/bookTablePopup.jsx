@@ -27,6 +27,8 @@ export default ({ onSubmit, onCancel, db, user }) => {
   })
 
   useEffect(() => {
+    M.Toast.dismissAll()
+
     const { date, time } = booking
     const ref = db.ref(`bookings/${date}/${time}`)
 
@@ -39,15 +41,23 @@ export default ({ onSubmit, onCancel, db, user }) => {
             if (!!keys.length) {
               const free = 14 - keys.map((key) => value[key].chairs)
                 .reduce((a, b) => a + b)
-
-              console.log('from db -- ', free)
+              M.toast({
+                html: `<span>${free} free chairs at this time!</span>`,
+                classes: 'rounded info-toast',
+              })
               setFreeTables(free)
             } else {
-              console.log('from db -- ', 14)
+              M.toast({
+                html: `<span>${14} free chairs at this time!</span>`,
+                classes: 'rounded info-toast',
+              })
               setFreeTables(14)
             }
           } else {
-            console.log(14)
+            M.toast({
+              html: `<span>${14} free chairs at this time!</span>`,
+              classes: 'rounded info-toast',
+            })
             setFreeTables(14)
           }
         })
@@ -59,6 +69,7 @@ export default ({ onSubmit, onCancel, db, user }) => {
   const onSubmitHandler = (event) => {
     event.preventDefault()
     onSubmit(booking)
+    setBooking({})
   }
 
   const timeOptions = []
@@ -150,7 +161,7 @@ export default ({ onSubmit, onCancel, db, user }) => {
           </button>
           <button
             onClick={() => onCancel(false)}
-            className="btn waves-effect waves-light right"
+            className="btn waves-effect waves-light right cancel-btn"
           >
             CANCEL
             <i className="material-icons right">cancel</i>

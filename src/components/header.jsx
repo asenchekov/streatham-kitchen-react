@@ -8,8 +8,8 @@ export default ({ onClickHandler, loggedIn, firstName }) => {
 
   useEffect(() => {
     if (headerTop && headerBottom) {
-      headerTop.className += ' animation_h1'
-      headerBottom.className += ' animation_h2'
+      headerTop.className = 'head animation_h1'
+      headerBottom.className ='head animation_h2'
     }
   })
 

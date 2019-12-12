@@ -8,6 +8,7 @@ import {
   Route,
 } from 'react-router-dom'
 import BackgroundSlider from 'react-background-slider'
+import M from 'materialize-css'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -146,24 +147,36 @@ export default () => {
         chairs,
         confirmed: false,
       })
-      .then(() => console.log("Added reservation success"))
-      .catch(console.log)
+      .then(() => database.ref(`users/${uid}/${date}T${time}`).set(chairs))
+      .then(() => M.toast({
+        html: '<span>Added reservation success!</span>',
+        classes: 'rounded success-toast',
+      }))
+      .catch((err) => {
+        M.toast({
+          html: '<span>Something went wrong!</span>',
+          classes: 'rounded alert-toast',
+        })
+        console.log(err)
+      })
 
-    database.ref(`users/${uid}/${date}T${time}`)
-      .set(chairs)
-      .then(() => console.log("Added reservation success"))
-      .catch(console.log)
     setBookPopup(false)
   }
 
   const onRemoveHandler = (key, uid = user.uid) => {
     database.ref(`bookings/${key.split('T').join('/')}/${uid}`).remove()
-      .then(() => console.log('Successfully removed', key))
-      .catch(console.log)
-
-    database.ref(`users/${uid}/${key}`).remove()
-      .then(() => console.log('Successfully removed', key))
-      .catch(console.log)
+      .then(() => database.ref(`users/${uid}/${key}`).remove())
+      .then(() => M.toast({
+        html: '<span>Removed reservation success!</span>',
+        classes: 'rounded success-toast',
+      }))
+      .catch((err) => {
+        M.toast({
+          html: '<span>Something went wrong!</span>',
+          classes: 'rounded alert-toast',
+        })
+        console.log(err)
+      })
   }
 
   const logOut = () => {
@@ -214,7 +227,7 @@ export default () => {
       <Switch>
         {adminPage}
         <Route path="/about">
-          <AboutUs styles="about" />
+          <AboutUs />
         </Route>
         <Route path="/bookings">
           <Bookings

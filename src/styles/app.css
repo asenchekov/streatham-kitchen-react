@@ -94,7 +94,7 @@ nav ul a {
   z-index: 50;
 }
 
-h1, h3, .delete {
+h1, h3 {
   font-family: var(--header-font);
   text-align: center;
   font-size: 5rem;
@@ -116,11 +116,13 @@ h1, h3, .delete {
 p {
   color: var(--text-color);
   font-family: var(--header-font);
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-align: center;
 }
 
 .logo {
+  width: 150px;
+  height: 150px;
   opacity: 0;
 }
 
@@ -158,6 +160,10 @@ th, td {
   border: 1px solid white;
 }
 
+.cancel-btn {
+  background-color: rgb(92, 1, 1);
+}
+
 .datepicker-container {
   border: 1px solid white;
 }
@@ -176,4 +182,28 @@ th, td {
 
 .card-stacked {
   width: 60%;
+}
+
+.success-toast {
+  background-color: rgba(31, 156, 0, 0.5);
+  color: var(--text-color);
+  font-weight: 600;
+  width: 100vw;
+}
+
+.alert-toast {
+  background-color: rgba(105, 0, 0, 0.5);
+  color: var(--text-color);
+  font-weight: 600;
+  width: 100vw;
+}
+
+.info-toast {
+  font-weight: 600;
+}
+
+.success-toast span,
+.alert-toast span {
+  width: 100%;
+  text-align: center;
 }

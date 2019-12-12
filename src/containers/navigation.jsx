@@ -13,7 +13,7 @@ export default ({ loggedIn, logout, onBook, setBookPopup, admin }) => {
     })
 
     if (logo) {
-      logo.className += ' animation_logo'
+      logo.className = 'logo animation_logo'
     }
   })
 

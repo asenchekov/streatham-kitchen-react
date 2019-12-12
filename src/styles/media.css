@@ -42,8 +42,14 @@
   .card {
     width: 100%;
   }
+
   .card-content {
     padding: 0;
+  }
+
+  .alert-toast,
+  .success-toast {
+    transform: translateX(0);
   }
 }
 

@@ -8,7 +8,7 @@ export default ({ onSubmit, onCancel, db, user }) => {
   const [booking, setBooking] = useState({})
   const [select, setSelect] = useState(null)
   const [datePicker, setDatePicker] = useState(null)
-  const [freeTables, setFreeTables] = useState(0)
+  const [freeTables, setFreeTables] = useState(null)
 
   useEffect(()=> {
     M.FormSelect.init(select)
@@ -27,8 +27,6 @@ export default ({ onSubmit, onCancel, db, user }) => {
   })
 
   useEffect(() => {
-    M.Toast.dismissAll()
-
     const { date, time } = booking
     const ref = db.ref(`bookings/${date}/${time}`)
 
@@ -41,23 +39,11 @@ export default ({ onSubmit, onCancel, db, user }) => {
             if (!!keys.length) {
               const free = 14 - keys.map((key) => value[key].chairs)
                 .reduce((a, b) => a + b)
-              M.toast({
-                html: `<span>${free} free chairs at this time!</span>`,
-                classes: 'rounded info-toast',
-              })
               setFreeTables(free)
             } else {
-              M.toast({
-                html: `<span>${14} free chairs at this time!</span>`,
-                classes: 'rounded info-toast',
-              })
               setFreeTables(14)
             }
           } else {
-            M.toast({
-              html: `<span>${14} free chairs at this time!</span>`,
-              classes: 'rounded info-toast',
-            })
             setFreeTables(14)
           }
         })
@@ -66,8 +52,19 @@ export default ({ onSubmit, onCancel, db, user }) => {
     return () => ref.off()
   }, [booking, db, user])
 
+  useEffect(() => {
+    M.Toast.dismissAll()
+    if(freeTables) {
+      M.toast({
+        html: `<span>${freeTables} free chairs at this time!</span>`,
+        classes: 'rounded info-toast',
+      })
+    }
+  }, [freeTables, booking.date, booking.time])
+
   const onSubmitHandler = (event) => {
     event.preventDefault()
+    M.Toast.dismissAll()
     onSubmit(booking)
     setBooking({})
   }

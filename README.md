@@ -1,1 +1,1 @@
-# Streatham Kitchen Reastaurant Project
+# Streatham Kitchen Restaurant Project

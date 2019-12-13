@@ -128,6 +128,7 @@ export default ({ onSubmit, onCancel, db, user }) => {
         <div className="row form">
           <div className="input-field col s12">
             <select
+              className={window.innerWidth <= 415 ? "browser-default" : ""}
               ref={(select) => setSelect(select)}
               value={booking.time || ""}
               onChange={(event) => setBooking({

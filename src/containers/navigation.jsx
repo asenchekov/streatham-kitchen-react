@@ -51,17 +51,14 @@ export default ({ loggedIn, logout, onBook, setBookPopup, admin }) => {
 
   return (
       <div className="navbar-fixed">
-        
         <nav>
           <div className="nav-wrapper">
-
             <a
               href="#!"
               data-target="mobile-nav"
               className="sidenav-trigger">
                 <i className="material-icons">menu</i>
             </a>
-
             <ul className="left hide-on-med-and-down">
               <li>
                 <Link
@@ -85,7 +82,6 @@ export default ({ loggedIn, logout, onBook, setBookPopup, admin }) => {
                 </Link>
               </li>
             </ul>
-            
             <ul className="right">
               <li>
                 <img

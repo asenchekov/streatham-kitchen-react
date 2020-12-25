@@ -82,8 +82,7 @@ export default () => {
           photoURL,
         });
 
-        if (email === 'asen.chekov@gmail.com'
-          || email === 'Streathamkitchen@gmail.com') {
+        if (email === 'asen.chekov@gmail.com') {
           setAdmin(true)
         }
       }

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "dotenv": "^8.2.0",
-    "firebase": "^7.4.0",
+    "firebase": "^10.9.0",
     "firebaseui": "^4.3.0",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.24.0",
